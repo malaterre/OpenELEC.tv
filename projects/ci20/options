@@ -5,17 +5,19 @@
   # The TARGET_CPU variable controls which processor should be targeted for
   # generated code.
     case $TARGET_ARCH in
-      mipsel)
+      mips)
         # (AMD CPUs)    k8 k8-sse3 opteron opteron-sse3 athlon64 athlon64-sse3
         #               athlon-fx amdfam10 barcelona
         # (Intel CPUs)  atom core2 nocona
         #
-        TARGET_CPU="mipsel"
+        TARGET_CPU="jz4780"
+        TARGET_FLOAT="hard"
+        #TARGET_FPU="neon-vfpv4"
         ;;
     esac
 
   # Bootloader to use (syslinux / u-boot)
-    BOOTLOADER="syslinux"
+    BOOTLOADER="u-boot"
 
   # u-boot version to use (default)
     UBOOT_VERSION="default"
@@ -27,7 +29,7 @@
     UBOOT_CONFIGFILE=""
 
   # Kernel target
-    KERNEL_TARGET="bzImage"
+    KERNEL_TARGET="zImage"
 
   # Kernel devicetree image
     KERNEL_UBOOT_DT_IMAGE=""
@@ -51,7 +53,7 @@
     OPTIMIZATIONS="size"
 
   # Project CFLAGS
-    PROJECT_CFLAGS="-mmmx -msse -msse2 -mfpmath=sse"
+    PROJECT_CFLAGS=""
 
   # LTO (Link Time Optimization) support
     LTO_SUPPORT="yes"
@@ -60,7 +62,7 @@
     GOLD_SUPPORT="yes"
 
   # SquashFS compression method (gzip / lzo / xz)
-    SQUASHFS_COMPRESSION="gzip"
+    SQUASHFS_COMPRESSION="lzo"
 
 
 ################################################################################
@@ -74,10 +76,18 @@
     OPENGL="mesa"
 
   # include uvesafb support (yes / no)
-    UVESAFB_SUPPORT="yes"
+    UVESAFB_SUPPORT="no"
 
   # Displayserver to use (x11 / no)
-    DISPLAYSERVER="x11"
+    DISPLAYSERVER="no"
+
+  # Windowmanager to use (ratpoison / fluxbox / none)
+    WINDOWMANAGER="none"
+
+  # Xorg Graphic drivers to use (all / i915,i965,r200,r300,r600,nvidia)
+  # Space separated list is supported,
+  # e.g. GRAPHIC_DRIVERS="i915 i965 r300 r600 radeonsi nvidia"
+    GRAPHIC_DRIVERS=""
 
   # KODI Player implementation to use (default / bcm2835-firmware / libfslvpuwrap)
     KODIPLAYER_DRIVER="default"
@@ -90,16 +100,36 @@
   # e.g. FIRMWARE="dvb-firmware misc-firmware wlan-firmware"
     FIRMWARE="misc-firmware wlan-firmware dvb-firmware iwlwifi-firmware"
 
+  # build and install ATV IR remote support (yes / no)
+    ATVCLIENT_SUPPORT="no"
+
+  # build and install IRServer IR/LCD support (yes / no)
+    IRSERVER_SUPPORT="no"
+
+  # build with swap support (yes / no)
+    SWAP_SUPPORT="yes"
+
+  # swap support enabled per default (yes / no)
+    SWAP_ENABLED_DEFAULT="no"
+
+  # swapfile size if SWAP_SUPPORT=yes in MB
+    SWAPFILESIZE="128"
+
+  # build with installer (yes / no)
+    INSTALLER_SUPPORT="no"
+
+  # kernel image name
+    KERNEL_NAME="kernel.img"
+
   # additional drivers to install:
   # for a list of additinoal drivers see packages/linux-drivers
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS bcm_sta"
+    ADDITIONAL_DRIVERS="$ADDITIONAL_DRIVERS"
 
   # install extra kernel drivers, see configfiles in packages/linux/config/*.config
   # or projects/*/linux/*.config or distributions/*/linux/*.config
   # please add all configfiles which should be included without the suffix and prefix
   # except the default-*.config and the ones included in packages/linux/package.mk
   # Space separated list is supported,
-    KERNEL_EXTRA_CONFIG+=" keyboard-at mouse-ps2"
-    KERNEL_EXTRA_CONFIG+=" scsi sata dvb-pci lan-pci wlan-pci sound-pci sound-soc-x86"
+    KERNEL_EXTRA_CONFIG+=""
