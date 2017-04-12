@@ -19,7 +19,7 @@
   TARGET_SUBARCH=mipsel
 
   TARGET_GCC_ARCH=mipsel
-  TARGET_KERNEL_ARCH=mipsel
+  TARGET_KERNEL_ARCH=mips
 
 # setup ARCH specific *FLAGS
   TARGET_CFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32 -Wa,-mips32r2  -mhard-float -mdouble-float"
