@@ -1,26 +1,29 @@
+# http://forum.kodi.tv/showthread.php?tid=204063&page=2
+# https://framagit.org/Ypnose/solyste/commit/340cf984ae5faa87364a3810de24f15f92c9f1b9?view=inline&w=1
+
+# TODO:
+# -mno-fused-madd
+# https://patchwork.ozlabs.org/patch/683676/
+# -msynci
+# https://android.googlesource.com/platform/build/+/90ce45347064210585a3a1f59a0514c22c753c8a%5E%21/
+# "-Wa,-mmxu":
+# http://buildroot-busybox.2317881.n4.nabble.com/PATCH-1-2-MIPS-add-support-for-XBurst-cores-td148046.html
+# glibc:
+# https://groups.google.com/forum/#!original/mips-creator-ci20/d4HTdXMsJVo/BklPza4MHtcJ
 # determines TARGET_CPU, if not forced by user
   if [ -z "$TARGET_CPU" ]; then
-    TARGET_CPU=jz4780
+    TARGET_CPU=mips32r2
   fi
 
 # determine architecture's family
-  case $TARGET_CPU in
-    jz4780)
-      TARGET_SUBARCH=mips32r2
-      TARGET_ABI=eabi
-      TARGET_EXTRA_FLAGS="-EL -mcpu=$TARGET_CPU"
-      TARGET_FPU_FLAGS="-mfloat-abi=$TARGET_FLOAT -mfpu=$TARGET_FPU"
-      SIMD_SUPPORT="yes"
-      ;;
-  esac
+  TARGET_SUBARCH=mipsel
 
-  TARGET_GCC_ARCH=${TARGET_SUBARCH/-}
-  TARGET_KERNEL_ARCH=mips
+  TARGET_GCC_ARCH=mipsel
+  TARGET_KERNEL_ARCH=mipsel
 
 # setup ARCH specific *FLAGS
-  TARGET_CFLAGS="-march=$TARGET_SUBARCH -mabi=32"
-  [ -n "$TARGET_FPU" ] && TARGET_CFLAGS="$TARGET_CFLAGS $TARGET_FPU_FLAGS"
-  TARGET_LDFLAGS="-march=$TARGET_SUBARCH" # -mtune=$TARGET_CPU"
-  #GCC_OPTS="--with-abi=32 -mhard-float"
-  #GCC_OPTS="--with-abi=32"
+  TARGET_CFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32 -Wa,-mips32r2  -mhard-float -mdouble-float"
+  TARGET_LDFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32 -Wa,-mips32r2  -mhard-float -mdouble-float"
   GCC_OPTS="--with-abi=32 --with-arch=mips32r2"
+# build with SIMD support ( yes / no )
+  SIMD_SUPPORT="yes"
