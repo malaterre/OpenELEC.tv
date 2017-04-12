@@ -10,7 +10,8 @@
         #               athlon-fx amdfam10 barcelona
         # (Intel CPUs)  atom core2 nocona
         #
-        TARGET_CPU="jz4780"
+        #TARGET_CPU="jz4780"
+        TARGET_CPU="mips32r2"
         TARGET_FLOAT="hard"
         #TARGET_FPU="neon-vfpv4"
         ;;
