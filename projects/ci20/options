@@ -36,7 +36,7 @@
     KERNEL_UBOOT_DT_IMAGE=""
 
   # Kernel extra targets to build
-    KERNEL_UBOOT_EXTRA_TARGET="ci20-bla.dtb"
+    KERNEL_UBOOT_EXTRA_TARGET="ci20.dtb"
 
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
     KERNEL_MAKE_EXTRACMD=""
