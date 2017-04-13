@@ -26,6 +26,11 @@ elif [ "$UBOOT_VERSION" = "imx6-cuboxi" ]; then
   PKG_SITE="http://imx.solid-run.com/wiki/index.php?title=Building_the_kernel_and_u-boot_for_the_CuBox-i_and_the_HummingBoard"
   PKG_GIT_URL="https://github.com/SolidRun/u-boot-imx6.git"
   PKG_GIT_BRANCH="imx6"
+elif [ "$UBOOT_VERSION" = "ci20-mmc" ]; then
+  PKG_VERSION="25f5638"
+  PKG_SITE="http://elinux.org/CI20_Dev_Zone#Building_uboot_from_sources"
+  PKG_GIT_URL="https://github.com/SolidRun/u-boot-imx6.git"
+  PKG_GIT_BRANCH="ci20-v2013.10"
 else
   exit 0
 fi
