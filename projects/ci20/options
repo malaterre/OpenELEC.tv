@@ -21,22 +21,23 @@
     BOOTLOADER="u-boot"
 
   # u-boot version to use (default)
-    UBOOT_VERSION="ci20-cuboxi"
+    UBOOT_VERSION="ci20-mmc"
 
   # Configuration for u-boot
-    UBOOT_CONFIG="c20_cubox-i_config"
+    UBOOT_CONFIG="c20_mmc"
 
   # Target Configfile for u-boot
     UBOOT_CONFIGFILE=""
 
   # Kernel target
-    KERNEL_TARGET="zImage"
+    KERNEL_TARGET="uImage"
 
   # Kernel devicetree image
     KERNEL_UBOOT_DT_IMAGE=""
 
   # Kernel extra targets to build
-    KERNEL_UBOOT_EXTRA_TARGET="ci20.dtb"
+    KERNEL_UBOOT_EXTRA_TARGET="ingenic/ci20.dtb"
+    KERNEL_UBOOT_EXTRA_TARGET=""
 
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
     KERNEL_MAKE_EXTRACMD=""
