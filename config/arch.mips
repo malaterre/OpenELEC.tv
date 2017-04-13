@@ -23,7 +23,9 @@
 
 # setup ARCH specific *FLAGS
   TARGET_CFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32 -Wa,-mips32r2  -mhard-float -mdouble-float"
-  TARGET_LDFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32 -Wa,-mips32r2  -mhard-float -mdouble-float"
+  TARGET_LDFLAGS="-EL -march=$TARGET_CPU -mtune=$TARGET_CPU -mabi=32  -mhard-float -mdouble-float"
   GCC_OPTS="--with-abi=32 --with-arch=mips32r2"
 # build with SIMD support ( yes / no )
   SIMD_SUPPORT="yes"
+  LTO_SUPPORT="no"
+  GOLD_SUPPORT="no"
