@@ -27,5 +27,6 @@
   GCC_OPTS="--with-abi=32 --with-arch=mips32r2"
 # build with SIMD support ( yes / no )
   SIMD_SUPPORT="yes"
+  # mipsel-openelec-linux-gnu-ld: -f may not be used without -shared
   LTO_SUPPORT="no"
   GOLD_SUPPORT="no"
