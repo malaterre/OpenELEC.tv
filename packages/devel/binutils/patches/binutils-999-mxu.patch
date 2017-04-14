@@ -1,8 +1,6 @@
-diff --git a/gas/config/tc-mips.c b/gas/config/tc-mips.c
-index 4760c05..2e2df7f 100644
---- a/gas/config/tc-mips.c
-+++ b/gas/config/tc-mips.c
-
+diff -N -ru binutils-2.23.2/gas/config/tc-mips.c binutils-2.23/gas/config/tc-mips.c
+--- binutils-2.23.2/gas/config/tc-mips.c	2012-09-04 16:21:03.000000000 +0200
++++ binutils-2.23/gas/config/tc-mips.c	2017-04-14 12:10:05.503317940 +0200
 @@ -218,6 +218,7 @@
    int ase_dsp;
    int ase_dspr2;
@@ -20,17 +18,17 @@ index 4760c05..2e2df7f 100644
    /* at */ ATREG, /* warn_about_macros */ 0, /* nomove */ 0, /* nobopt */ 0,
    /* noautoextend */ 0, /* gp32 */ 0, /* fp32 */ 0, /* arch */ CPU_UNKNOWN,
    /* sym32 */ FALSE, /* soft_float */ FALSE, /* single_float */ FALSE
-@@ -349,6 +350,9 @@
- /* True if -mdsp was passed or implied by arguments passed on the
+@@ -350,6 +351,9 @@
     command line (e.g., by -march).  */
  static int file_ase_dsp;
-+
+ 
 +/* True if -mmxu was passed.  */
 +static int file_ase_mxu;
- 
++
  #define ISA_SUPPORTS_DSP_ASE (mips_opts.isa == ISA_MIPS32R2		\
- 			      || mips_opts.isa == ISA_MIPS64R2)
-@@ -1399,6 +1403,7 @@
+ 			      || mips_opts.isa == ISA_MIPS64R2		\
+ 			      || mips_opts.micromips)
+@@ -1387,6 +1391,7 @@
  #define MIPS_CPU_ASE_MDMX	0x0020	/* CPU implements MDMX ASE */
  #define MIPS_CPU_ASE_DSPR2	0x0040	/* CPU implements DSP R2 ASE */
  #define MIPS_CPU_ASE_MCU	0x0080	/* CPU implements MCU ASE */
@@ -38,7 +36,7 @@ index 4760c05..2e2df7f 100644
  
  static const struct mips_cpu_info *mips_parse_cpu (const char *, const char *);
  static const struct mips_cpu_info *mips_cpu_info_from_isa (int);
-@@ -1839,12 +1844,45 @@
+@@ -1827,12 +1832,45 @@
  #undef CONFLICT
  }
  
@@ -85,7 +83,7 @@ index 4760c05..2e2df7f 100644
  #define RTYPE_NUM	0x00100
  #define RTYPE_FPU	0x00200
  #define RTYPE_FCC	0x00400
-@@ -1854,6 +1892,7 @@
+@@ -1842,6 +1880,7 @@
  #define RTYPE_PC	0x04000
  #define RTYPE_ACC	0x08000
  #define RTYPE_CCC	0x10000
@@ -93,7 +91,7 @@ index 4760c05..2e2df7f 100644
  #define RNUM_MASK	0x000ff
  #define RWARN		0x80000
  
-@@ -2047,6 +2086,25 @@
+@@ -2035,6 +2074,25 @@
      {"$ac2",	RTYPE_ACC | 2}, \
      {"$ac3",	RTYPE_ACC | 3}
  
@@ -119,7 +117,7 @@ index 4760c05..2e2df7f 100644
  static const struct regname reg_names[] = {
    GENERIC_REGISTER_NUMBERS,
    FPU_REGISTER_NAMES,
-@@ -2062,6 +2120,7 @@
+@@ -2050,6 +2108,7 @@
    MIPS16_SPECIAL_REGISTER_NAMES,
    MDMX_VECTOR_REGISTER_NAMES,
    MIPS_DSP_ACCUMULATOR_NAMES,
@@ -127,7 +125,7 @@ index 4760c05..2e2df7f 100644
    {0, 0}
  };
  
-@@ -2202,6 +2261,8 @@
+@@ -2190,6 +2249,8 @@
    int isa = mips_opts.isa;
    int fp_s, fp_d;
  
@@ -136,7 +134,7 @@ index 4760c05..2e2df7f 100644
    if (mips_opts.ase_mdmx)
      isa |= INSN_MDMX;
    if (mips_opts.ase_dsp)
-@@ -10345,6 +10406,70 @@
+@@ -10314,6 +10375,70 @@
        case '\\': USE_BITS (OP_MASK_3BITPOS,	OP_SH_3BITPOS);	break;
        case '~': USE_BITS (OP_MASK_OFFSET12,	OP_SH_OFFSET12); break;
        case 'g': USE_BITS (OP_MASK_RD,		OP_SH_RD);	break;
@@ -207,7 +205,7 @@ index 4760c05..2e2df7f 100644
        default:
  	as_bad (_("internal: bad mips opcode (unknown operand type `%c'): %s %s"),
  		c, opc->name, opc->args);
-@@ -11727,7 +11852,86 @@
+@@ -11753,7 +11878,86 @@
  	      break;
  
  	    case 'y':		/* ALNV.PS source register.  */
@@ -295,7 +293,7 @@ index 4760c05..2e2df7f 100644
  	      goto do_reg;
  	    case 'x':		/* Ignore register name.  */
  	    case 'U':           /* Destination register (CLO/CLZ).  */
-@@ -12401,7 +12605,15 @@
+@@ -12427,7 +12631,15 @@
  	      continue;
  
  	    case 'm':		/* Opcode extension character.  */
@@ -312,7 +310,7 @@ index 4760c05..2e2df7f 100644
  	      c = *++args;
  	      switch (c)
  		{
-@@ -13109,7 +13321,80 @@
+@@ -13135,7 +13347,80 @@
  	      break;
  
  	    case 'n':		/* Register list for 32-bit lwm and swm.  */
@@ -394,11 +392,10 @@ index 4760c05..2e2df7f 100644
  	      {
  		/* A comma-separated list of registers and/or
  		   dash-separated contiguous ranges including
-@@ -13159,6 +13444,413 @@
- 	      imm_expr.X_op = O_absent;
+@@ -13186,6 +13471,413 @@
  	      s = expr_end;
  	      continue;
-+
+ 
 +/**************	JZ SPECIAL ISA	****************/ /* S32MTI and S32I2M is added by 'm', 'n' above */
 +
 +	    case '=':
@@ -805,10 +802,11 @@ index 4760c05..2e2df7f 100644
 +		break;
 +	      }
 +	      break;
- 
++
  	    default:
  	      as_bad (_("Bad char = '%c'\n"), *args);
-@@ -14272,6 +14964,8 @@
+ 	      internalError ();
+@@ -14298,6 +14990,8 @@
      OPTION_NO_DSP,
      OPTION_MT,
      OPTION_NO_MT,
@@ -817,7 +815,7 @@ index 4760c05..2e2df7f 100644
      OPTION_SMARTMIPS,
      OPTION_NO_SMARTMIPS,
      OPTION_DSPR2,
-@@ -14368,6 +15062,8 @@
+@@ -14394,6 +15088,8 @@
    {"mno-dsp", no_argument, NULL, OPTION_NO_DSP},
    {"mmt", no_argument, NULL, OPTION_MT},
    {"mno-mt", no_argument, NULL, OPTION_NO_MT},
@@ -826,22 +824,22 @@ index 4760c05..2e2df7f 100644
    {"msmartmips", no_argument, NULL, OPTION_SMARTMIPS},
    {"mno-smartmips", no_argument, NULL, OPTION_NO_SMARTMIPS},
    {"mdspr2", no_argument, NULL, OPTION_DSPR2},
-@@ -14620,6 +15316,14 @@
-     case OPTION_NO_DSPR2:
-       mips_opts.ase_dspr2 = 0;
+@@ -14648,6 +15344,14 @@
        mips_opts.ase_dsp = 0;
-+      break;
-+
+       break;
+ 
 +    case OPTION_MXU:
 +      mips_opts.ase_mxu = 1;
 +      break;
 +
 +    case OPTION_NO_MXU:
 +      mips_opts.ase_mxu = 0;
-       break;
- 
++      break;
++
      case OPTION_MT:
-@@ -15146,12 +15850,16 @@
+       mips_opts.ase_mt = 1;
+       break;
+@@ -15172,12 +15876,16 @@
        as_warn (_("%s ISA does not support MCU ASE"),
  	       mips_cpu_info_from_isa (mips_opts.isa)->name);
  
@@ -858,7 +856,7 @@ index 4760c05..2e2df7f 100644
    file_ase_mt = mips_opts.ase_mt;
    mips_opts.gp32 = file_mips_gp32;
    mips_opts.fp32 = file_mips_fp32;
-@@ -16198,6 +16906,10 @@
+@@ -16224,6 +16932,10 @@
      }
    else if (strcmp (name, "nomt") == 0)
      mips_opts.ase_mt = 0;
@@ -869,7 +867,7 @@ index 4760c05..2e2df7f 100644
    else if (strcmp (name, "mcu") == 0)
      mips_opts.ase_mcu = 1;
    else if (strcmp (name, "nomcu") == 0)
-@@ -19348,6 +20060,9 @@
+@@ -19409,6 +20121,9 @@
  -mmcu			generate MCU instructions\n\
  -mno-mcu		do not generate MCU instructions\n"));
    fprintf (stream, _("\
@@ -879,13 +877,10 @@ index 4760c05..2e2df7f 100644
  -mfix-loongson2f-jump	work around Loongson2F JUMP instructions\n\
  -mfix-loongson2f-nop	work around Loongson2F NOP errata\n\
  -mfix-vr4120		work around certain VR4120 errata\n\
-
-diff --git a/include/opcode/mips.h b/include/opcode/mips.h
-index 9232508..6013223 100644
---- a/include/opcode/mips.h
-+++ b/include/opcode/mips.h
-
-@@ -326,6 +326,60 @@
+diff -N -ru binutils-2.23.2/include/opcode/mips.h binutils-2.23/include/opcode/mips.h
+--- binutils-2.23.2/include/opcode/mips.h	2012-09-04 16:21:05.000000000 +0200
++++ binutils-2.23/include/opcode/mips.h	2017-04-14 12:10:05.503317940 +0200
+@@ -328,6 +328,60 @@
  #define OP_MASK_IMMY		0
  #define OP_SH_IMMY		0
  
@@ -946,7 +941,7 @@ index 9232508..6013223 100644
  /* This structure holds information for a particular instruction.  */
  
  struct mips_opcode
-@@ -721,7 +775,7 @@
+@@ -726,7 +780,7 @@
  #define INSN_OCTEON2		  0x00000100
  
  /* Masks used for MIPS-defined ASEs.  */
@@ -955,7 +950,7 @@ index 9232508..6013223 100644
  
  /* DSP ASE */ 
  #define INSN_DSP                  0x00001000
-@@ -769,6 +823,8 @@
+@@ -774,6 +828,8 @@
  #define INSN_LOONGSON_3A          0x00000400
  /* RMI Xlr instruction */
  #define INSN_XLR              	  0x00000020
@@ -964,7 +959,7 @@ index 9232508..6013223 100644
  
  /* MCU (MicroController) ASE */
  #define INSN_MCU		  0x00000010
-@@ -1556,6 +1612,43 @@
+@@ -1619,6 +1675,43 @@
  #define MICROMIPSOP_MASK_RZ		0
  #define MICROMIPSOP_SH_FZ		0
  #define MICROMIPSOP_MASK_FZ		0
@@ -1008,12 +1003,9 @@ index 9232508..6013223 100644
  
  /* These are the characters which may appears in the args field of a microMIPS
     instruction.  They appear in the order in which the fields appear
-
-diff --git a/opcodes/mips-dis.c b/opcodes/mips-dis.c
-index 8990db8..99294f1 100644
---- a/opcodes/mips-dis.c
-+++ b/opcodes/mips-dis.c
-
+diff -N -ru binutils-2.23.2/opcodes/mips-dis.c binutils-2.23/opcodes/mips-dis.c
+--- binutils-2.23.2/opcodes/mips-dis.c	2012-09-04 16:23:13.000000000 +0200
++++ binutils-2.23/opcodes/mips-dis.c	2017-04-14 12:10:05.503317940 +0200
 @@ -44,6 +44,41 @@
  
  /* FIXME: These should be shared with gdb somehow.  */
@@ -1108,8 +1100,17 @@ index 8990db8..99294f1 100644
  /* Print insn arguments for 32/64-bit code.  */
  
  static void
-@@ -1494,6 +1557,225 @@
- 				 (l >> OP_SH_FT) & OP_MASK_FT);
+@@ -938,7 +1001,7 @@
+   const fprintf_ftype infprintf = info->fprintf_func;
+   unsigned int lsb, msb, msbd;
+   void *is = info->stream;
+-  int op;
++  int op, delta;
+ 
+   lsb = 0;
+ 
+@@ -1406,6 +1469,225 @@
+ 	  infprintf (is, "$v%d", GET_OP (l, FT));
  	  break;
  
 +       /************** JZ SEPCIAL ISA  *****************/
@@ -1333,13 +1334,10 @@ index 8990db8..99294f1 100644
 +
  	default:
  	  /* xgettext:c-format */
- 	  (*info->fprintf_func) (info->stream,
-
-diff --git a/opcodes/mips-opc.c b/opcodes/mips-opc.c
-index 93238d4..9b4142d 100644
---- a/opcodes/mips-opc.c
-+++ b/opcodes/mips-opc.c
-
+ 	  infprintf (is, _("# internal error, undefined modifier (%c)"), *d);
+diff -N -ru binutils-2.23.2/opcodes/mips-opc.c binutils-2.23/opcodes/mips-opc.c
+--- binutils-2.23.2/opcodes/mips-opc.c	2012-09-04 16:21:10.000000000 +0200
++++ binutils-2.23/opcodes/mips-opc.c	2017-04-14 12:10:05.507317925 +0200
 @@ -179,6 +179,9 @@
  /* MIPS MCU (MicroController) ASE support.  */
  #define MC	INSN_MCU
@@ -1351,9 +1349,9 @@ index 93238d4..9b4142d 100644
     register arguments look the same. Instructions that can have either
     for arguments must apear in the correct order in this table for the
 @@ -972,8 +975,12 @@
- {"mfc0",    "t,G",	0x40000000, 0xffe007ff,	LCD|WR_t|RD_C0,		0,		I1|IOCT	},
- {"mfc0",    "t,+D",     0x40000000, 0xffe007f8, LCD|WR_t|RD_C0, 	0,		I32|IOCT},
- {"mfc0",    "t,G,H",    0x40000000, 0xffe007f8, LCD|WR_t|RD_C0, 	0,		I32|IOCT},
+ {"mfc0",    "t,G",	0x40000000, 0xffe007ff,	LCD|WR_t|RD_C0,		0,		I1	},
+ {"mfc0",    "t,+D",0x40000000, 0xffe007f8,	LCD|WR_t|RD_C0,		0,		I32	},
+ {"mfc0",    "t,G,H",	0x40000000, 0xffe007f8,	LCD|WR_t|RD_C0,		0,		I32	},
 +{"mfc1",    "t,S",	0x44000002, 0xffe007ff,	LCD|WR_t|RD_S|FP_S,	0,		MXU	},
 +{"mfc1",    "t,G",	0x44000002, 0xffe007ff,	LCD|WR_t|RD_S|FP_S,	0,		MXU	},
  {"mfc1",    "t,S",	0x44000000, 0xffe007ff,	LCD|WR_t|RD_S|FP_S,	0,		I1	},
@@ -1364,9 +1362,9 @@ index 93238d4..9b4142d 100644
  {"mfhc1",   "t,G",	0x44600000, 0xffe007ff,	LCD|WR_t|RD_S|FP_D,	0,		I33	},
  /* mfc2 is at the bottom of the table.  */
 @@ -1053,8 +1060,12 @@
- {"mtc0",    "t,G",	0x40800000, 0xffe007ff,	COD|RD_t|WR_C0|WR_CC,	0,		I1|IOCT	},
- {"mtc0",    "t,+D",     0x40800000, 0xffe007f8, COD|RD_t|WR_C0|WR_CC,   0,		I32|IOCT},
- {"mtc0",    "t,G,H",    0x40800000, 0xffe007f8, COD|RD_t|WR_C0|WR_CC,   0,		I32|IOCT},
+ {"mtc0",    "t,G",	0x40800000, 0xffe007ff,	COD|RD_t|WR_C0|WR_CC,	0,		I1	},
+ {"mtc0",    "t,+D",	0x40800000, 0xffe007f8,	COD|RD_t|WR_C0|WR_CC,	0,		I32	},
+ {"mtc0",    "t,G,H",	0x40800000, 0xffe007f8,	COD|RD_t|WR_C0|WR_CC,	0,		I32	},
 +{"mtc1",    "t,S",	0x44800002, 0xffe007ff,	COD|RD_t|WR_S|FP_S,	0,		MXU	},
 +{"mtc1",    "t,G",	0x44800002, 0xffe007ff,	COD|RD_t|WR_S|FP_S,	0,		MXU	},
  {"mtc1",    "t,S",	0x44800000, 0xffe007ff,	COD|RD_t|WR_S|FP_S,	0,		I1	},
@@ -1386,13 +1384,9 @@ index 93238d4..9b4142d 100644
  /* User Defined Instruction.  */
  {"udi0",     "s,t,d,+1",0x70000010, 0xfc00003f,	WR_d|RD_s|RD_t,		0,		I33	},
  {"udi0",     "s,t,+2",	0x70000010, 0xfc00003f,	WR_d|RD_s|RD_t,		0,		I33	},
-
-diff --git a/opcodes/mxu-opc.c b/opcodes/mxu-opc.c
-new file mode 100644
-index 0000000..0cbaa28
---- /dev/null
-+++ b/opcodes/mxu-opc.c
-
+diff -N -ru binutils-2.23.2/opcodes/mxu-opc.c binutils-2.23/opcodes/mxu-opc.c
+--- binutils-2.23.2/opcodes/mxu-opc.c	1970-01-01 01:00:00.000000000 +0100
++++ binutils-2.23/opcodes/mxu-opc.c	2017-04-14 12:10:05.507317925 +0200
 @@ -0,0 +1,127 @@
 +/**********************	JS SPECIAL ISA	********************************/
 +/* name,	args,		match,		mask,		pinfo,	pinfo2,		membership */
