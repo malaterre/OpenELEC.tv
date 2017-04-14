@@ -43,8 +43,9 @@
     KERNEL_MAKE_EXTRACMD=""
 
   # Kernel to use. values can be:
-  # default:  default mainline kernel
-    LINUX="ci20-ker"
+  # default:  default mainline kernel 
+  # ci20:  
+    LINUX="ci20"
 
 
 ################################################################################
