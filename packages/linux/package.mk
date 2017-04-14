@@ -53,6 +53,12 @@ case "$LINUX" in
     PKG_DEPENDS_TARGET+=" imx6-status-led imx6-soc-fan"
     PKG_PATCH_DIRS="linux-4.8 imx6-4.8"
     ;;
+  ci20)
+    PKG_VERSION="74899b6"
+    PKG_GIT_URL="https://github.com/MIPS/CI20_linux.git"
+    PKG_GIT_BRANCH="ci20-v3.18"
+    PKG_PATCH_DIRS="linux-3.18"
+    ;;
   rpi)
     PKG_VERSION="a22fc2f"
     PKG_GIT_URL="https://github.com/raspberrypi/linux.git"
