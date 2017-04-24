@@ -15,17 +15,19 @@
 #  You should have received a copy of the GNU General Public License
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
-PKG_NAME="CI20-SGX"
-PKG_VERSION="1.14.3759903"
+set -x
+#PKG_NAME="CI20-SGX"
+PKG_NAME="SGX_DDK_Linux_XOrg_MAIN@3759903_source_km"
+PKG_VERSION="3759903"
 PKG_REV="1"
 PKG_ARCH="mips"
 PKG_LICENSE="GPL"
 PKG_SITE="http://elinux.org/CI20-SGX_kernel_module"
 #PKG_URL="http://mipscreator.imgtec.com/CI20/sgx/SGX_DDK_Linux_XOrg_MAIN%403759903_source_km.tgz"
 PKG_URL="http://mipscreator.imgtec.com/CI20/sgx/SGX_DDK_Linux_XOrg_MAIN@3759903_source_km.tgz"
+#PKG_URL="http://mipscreator.imgtec.com/CI20/sgx/${PKG_NAME}[@]${PKG_VERSION}_source_km.tgz"
 PKG_DEPENDS_TARGET="toolchain linux"
-PKG_NEED_UNPACK="$LINUX_DEPENDS"
+#PKG_NEED_UNPACK="$LINUX_DEPENDS"
 PKG_PRIORITY="optional"
 PKG_SECTION="driver"
 PKG_SHORTDESC="CI20-SGX"
