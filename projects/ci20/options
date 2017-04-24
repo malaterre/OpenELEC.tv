@@ -77,6 +77,7 @@
 
   # OpenGL (X/ES) implementation to use (mesa / bcm2835-firmware / meson6 / meson8 / meson-gxbb / gpu-imx-gpu-viv)
     OPENGL="gpu-powervr"
+    OPENGL="mesa"
 
   # include uvesafb support (yes / no)
     UVESAFB_SUPPORT="no"
