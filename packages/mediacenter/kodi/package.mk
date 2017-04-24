@@ -256,6 +256,7 @@ makeinstall_host() {
 
 pre_configure_target() {
   export LIBS="$LIBS -lssp -ltermcap"
+  LDFLAGS="$LDFLAGS -latomic"
 }
 
 pre_make_target() {
