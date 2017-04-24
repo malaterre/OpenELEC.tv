@@ -83,7 +83,8 @@
     UVESAFB_SUPPORT="no"
 
   # Displayserver to use (x11 / no)
-    DISPLAYSERVER="no"
+    DISPLAYSERVER="no" # no libglesv2 for ci20 for now (RPI2 does have it), need ci20-sgx
+    DISPLAYSERVER="x11"
 
   # Windowmanager to use (ratpoison / fluxbox / none)
     WINDOWMANAGER="none"
@@ -136,4 +137,4 @@
   # for a list of additinoal drivers see packages/linux-drivers
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-    ADDITIONAL_DRIVERS=""
+    ADDITIONAL_DRIVERS="CI20-SGX"
