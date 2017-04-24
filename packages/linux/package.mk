@@ -58,7 +58,8 @@ case "$LINUX" in
     PKG_GIT_URL="https://github.com/MIPS/CI20_linux.git"
     PKG_GIT_BRANCH="ci20-v3.18"
     PKG_PATCH_DIRS="linux-3.18"
-    KERNEL_EXTRA_CONFIG+=" uImage"
+    #KERNEL_EXTRA_CONFIG+=" uImage"
+    #KERNEL_EXTRA_CONFIG+=" uImage.gz"
     ;;
   rpi)
     PKG_VERSION="a22fc2f"
