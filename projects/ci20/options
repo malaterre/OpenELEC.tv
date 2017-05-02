@@ -137,3 +137,4 @@
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
     ADDITIONAL_DRIVERS="SGX_DDK"
+#    KODI_MYSQL_SUPPORT="no"
