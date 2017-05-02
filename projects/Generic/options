@@ -62,6 +62,8 @@
   # SquashFS compression method (gzip / lzo / xz)
     SQUASHFS_COMPRESSION="gzip"
 
+  # Build GCC with libatomic support:
+    PKG_GCC_LIBATOMIC="no"
 
 ################################################################################
 # setup project defaults
