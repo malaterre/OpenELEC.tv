@@ -24,7 +24,7 @@
     UBOOT_VERSION="ci20-mmc"
 
   # Configuration for u-boot
-    UBOOT_CONFIG="c20_mmc"
+    UBOOT_CONFIG="ci20_mmc"
 
   # Target Configfile for u-boot
     UBOOT_CONFIGFILE=""
