@@ -15,7 +15,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
 PKG_NAME="u-boot"
 if [ "$UBOOT_VERSION" = "default" ]; then
   PKG_VERSION="2011.03-rc1"
@@ -29,13 +28,13 @@ elif [ "$UBOOT_VERSION" = "imx6-cuboxi" ]; then
 elif [ "$UBOOT_VERSION" = "ci20-mmc" ]; then
   PKG_VERSION="25f5638"
   PKG_SITE="http://elinux.org/CI20_Dev_Zone#Building_uboot_from_sources"
-  PKG_GIT_URL="https://github.com/SolidRun/u-boot-imx6.git"
+  PKG_GIT_URL="https://github.com/MIPS/CI20_u-boot"
   PKG_GIT_BRANCH="ci20-v2013.10"
 else
   exit 0
 fi
 PKG_REV="1"
-PKG_ARCH="arm aarch64"
+PKG_ARCH="arm aarch64 mips"
 PKG_LICENSE="GPL"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
