@@ -67,7 +67,7 @@
     SQUASHFS_COMPRESSION="gzip"
 
   # Build GCC with libatomic support:
-    PKG_GCC_LIBATOMIC="yes"
+    GCC_LIBATOMIC_SUPPORT="yes"
 
 ################################################################################
 # setup project defaults
