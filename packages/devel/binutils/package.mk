@@ -17,6 +17,7 @@
 ################################################################################
 
 PKG_NAME="binutils"
+# TODO: gold+mips32 is in binutils 2.26
 PKG_VERSION="2.23.2"
 PKG_REV="1"
 PKG_ARCH="any"
