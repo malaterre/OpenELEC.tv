@@ -35,7 +35,7 @@ PKG_AUTORECONF="yes"
 PKG_CONFIGURE_OPTS_TARGET="ac_cv_have_decl_TUNSETPERSIST=no \
                            --enable-lzo \
                            --disable-lz4 \
-                           --enable-crypto \
+                           --disable-crypto \
                            --enable-ofb-cfb \
                            --disable-x509-alt-username \
                            --enable-multi \
