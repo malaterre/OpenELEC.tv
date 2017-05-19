@@ -321,8 +321,8 @@ index 0000000..67cf6e1
 +
 +#include <crypto/internal/rng.h>
 +
-+#define REG_RNG_CTRL	0x0
-+#define REG_RNG_DATA	0x4
++#define REG_RNG_CTRL	0x0+0xd8
++#define REG_RNG_DATA	0x4+0xd8
 +
 +/* Context for crypto */
 +struct jz4780_rng_ctx {
