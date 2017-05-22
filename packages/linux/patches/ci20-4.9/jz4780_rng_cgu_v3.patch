@@ -1,3 +1,19 @@
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f8d77c8..83be066 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -6568,6 +6568,11 @@ L:	linux-mtd@lists.infradead.org
+ S:	Maintained
+ F:	drivers/mtd/nand/jz4780_*
+ 
++INGENIC JZ4780 PRNG DRIVER
++M:	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>
++S:	Maintained
++F:	drivers/crypto/jz4780-rng.c
++
+ INTEGRITY MEASUREMENT ARCHITECTURE (IMA)
+ M:	Mimi Zohar <zohar@linux.vnet.ibm.com>
+ M:	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
 diff --git a/arch/mips/boot/dts/ingenic/jz4780.dtsi b/arch/mips/boot/dts/ingenic/jz4780.dtsi
 index b868b42..f58371c 100644
 --- a/arch/mips/boot/dts/ingenic/jz4780.dtsi
@@ -53,7 +69,7 @@ index e8248f9..37bcdcb 100644
  /**
   * ingenic_cgu_gate_get() - get the value of clock gate register bit
   * @cgu: reference to the CGU whose registers should be read
-@@ -43,7 +55,7 @@
+@@ -43,7 +55,7 @@ static inline bool
  ingenic_cgu_gate_get(struct ingenic_cgu *cgu,
  		     const struct ingenic_cgu_gate_info *info)
  {
@@ -62,7 +78,7 @@ index e8248f9..37bcdcb 100644
  }
  
  /**
-@@ -60,14 +72,14 @@
+@@ -60,14 +72,14 @@ static inline void
  ingenic_cgu_gate_set(struct ingenic_cgu *cgu,
  		     const struct ingenic_cgu_gate_info *info, bool val)
  {
@@ -79,7 +95,7 @@ index e8248f9..37bcdcb 100644
  }
  
  /*
-@@ -91,7 +103,7 @@
+@@ -91,7 +103,7 @@ ingenic_pll_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
  	pll_info = &clk_info->pll;
  
  	spin_lock_irqsave(&cgu->lock, flags);
@@ -88,7 +104,7 @@ index e8248f9..37bcdcb 100644
  	spin_unlock_irqrestore(&cgu->lock, flags);
  
  	m = (ctl >> pll_info->m_shift) & GENMASK(pll_info->m_bits - 1, 0);
-@@ -190,7 +202,7 @@
+@@ -190,7 +202,7 @@ ingenic_pll_set_rate(struct clk_hw *hw, unsigned long req_rate,
  			clk_info->name, req_rate, rate);
  
  	spin_lock_irqsave(&cgu->lock, flags);
@@ -97,7 +113,7 @@ index e8248f9..37bcdcb 100644
  
  	ctl &= ~(GENMASK(pll_info->m_bits - 1, 0) << pll_info->m_shift);
  	ctl |= (m - pll_info->m_offset) << pll_info->m_shift;
-@@ -204,11 +216,11 @@
+@@ -204,11 +216,11 @@ ingenic_pll_set_rate(struct clk_hw *hw, unsigned long req_rate,
  	ctl &= ~BIT(pll_info->bypass_bit);
  	ctl |= BIT(pll_info->enable_bit);
  
@@ -133,7 +149,7 @@ index e8248f9..37bcdcb 100644
  
  		spin_unlock_irqrestore(&cgu->lock, flags);
  		return 0;
-@@ -321,7 +333,7 @@ static int ingenic_clk_set_parent(struct clk_hw *hw, u8 idx)
+@@ -321,7 +333,7 @@ ingenic_clk_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
  	clk_info = &cgu->clock_info[ingenic_clk->idx];
  
  	if (clk_info->type & CGU_CLK_DIV) {
@@ -142,7 +158,7 @@ index e8248f9..37bcdcb 100644
  		div = (div_reg >> clk_info->div.shift) &
  		      GENMASK(clk_info->div.bits - 1, 0);
  		div += 1;
-@@ -399,7 +411,7 @@ static int ingenic_clk_set_parent(struct clk_hw *hw, u8 idx)
+@@ -399,7 +411,7 @@ ingenic_clk_set_rate(struct clk_hw *hw, unsigned long req_rate,
  			return -EINVAL;
  
  		spin_lock_irqsave(&cgu->lock, flags);
@@ -151,7 +167,7 @@ index e8248f9..37bcdcb 100644
  
  		/* update the divide */
  		mask = GENMASK(clk_info->div.bits - 1, 0);
-@@ -415,12 +427,12 @@ static int ingenic_clk_set_parent(struct clk_hw *hw, u8 idx)
+@@ -415,12 +427,12 @@ ingenic_clk_set_rate(struct clk_hw *hw, unsigned long req_rate,
  			reg |= BIT(clk_info->div.ce_bit);
  
  		/* update the hardware */
@@ -166,7 +182,7 @@ index e8248f9..37bcdcb 100644
  				if (!(reg & BIT(clk_info->div.busy_bit)))
  					break;
  				mdelay(1);
-@@ -661,9 +673,8 @@ struct ingenic_cgu *
+@@ -661,9 +673,8 @@ ingenic_cgu_new(const struct ingenic_cgu_clk_info *clock_info,
  	if (!cgu)
  		goto err_out;
  
@@ -179,7 +195,7 @@ index e8248f9..37bcdcb 100644
  	}
  
 diff --git a/drivers/clk/ingenic/cgu.h b/drivers/clk/ingenic/cgu.h
-index 09700b2..e6d9fb6 100644
+index 09700b2..86fd5b0 100644
 --- a/drivers/clk/ingenic/cgu.h
 +++ b/drivers/clk/ingenic/cgu.h
 @@ -19,7 +19,9 @@
@@ -192,7 +208,15 @@ index 09700b2..e6d9fb6 100644
  #include <linux/spinlock.h>
  
  /**
-@@ -178,7 +180,7 @@ struct ingenic_cgu_clk_info {
+@@ -171,14 +173,14 @@ struct ingenic_cgu_clk_info {
+ /**
+  * struct ingenic_cgu - data about the CGU
+  * @np: the device tree node that caused the CGU to be probed
+- * @base: the ioremap'ed base address of the CGU registers
++ * @regmap: the regmap object used to access the CGU registers
+  * @clock_info: an array containing information about implemented clocks
+  * @clocks: used to provide clocks to DT, allows lookup of struct clk*
+  * @lock: lock to be held whilst manipulating CGU registers
   */
  struct ingenic_cgu {
  	struct device_node *np;
@@ -211,6 +235,90 @@ index 09700b2..e6d9fb6 100644
  /**
   * struct ingenic_clk - private data for a clock
   * @hw: see Documentation/clk.txt
+diff --git a/drivers/clk/ingenic/jz4740-cgu.c b/drivers/clk/ingenic/jz4740-cgu.c
+index 510fe7e..3003afb 100644
+--- a/drivers/clk/ingenic/jz4740-cgu.c
++++ b/drivers/clk/ingenic/jz4740-cgu.c
+@@ -232,7 +232,7 @@ CLK_OF_DECLARE(jz4740_cgu, "ingenic,jz4740-cgu", jz4740_cgu_init);
+ 
+ void jz4740_clock_set_wait_mode(enum jz4740_wait_mode mode)
+ {
+-	uint32_t lcr = readl(cgu->base + CGU_REG_LCR);
++	uint32_t lcr = cgu_readl(cgu, CGU_REG_LCR);
+ 
+ 	switch (mode) {
+ 	case JZ4740_WAIT_MODE_IDLE:
+@@ -244,24 +244,24 @@ void jz4740_clock_set_wait_mode(enum jz4740_wait_mode mode)
+ 		break;
+ 	}
+ 
+-	writel(lcr, cgu->base + CGU_REG_LCR);
++	cgu_writel(cgu, lcr, CGU_REG_LCR);
+ }
+ 
+ void jz4740_clock_udc_disable_auto_suspend(void)
+ {
+-	uint32_t clkgr = readl(cgu->base + CGU_REG_CLKGR);
++	uint32_t clkgr = cgu_readl(cgu, CGU_REG_CLKGR);
+ 
+ 	clkgr &= ~CLKGR_UDC;
+-	writel(clkgr, cgu->base + CGU_REG_CLKGR);
++	cgu_writel(cgu, clkgr, CGU_REG_CLKGR);
+ }
+ EXPORT_SYMBOL_GPL(jz4740_clock_udc_disable_auto_suspend);
+ 
+ void jz4740_clock_udc_enable_auto_suspend(void)
+ {
+-	uint32_t clkgr = readl(cgu->base + CGU_REG_CLKGR);
++	uint32_t clkgr = cgu_readl(cgu, CGU_REG_CLKGR);
+ 
+ 	clkgr |= CLKGR_UDC;
+-	writel(clkgr, cgu->base + CGU_REG_CLKGR);
++	cgu_writel(cgu, clkgr, CGU_REG_CLKGR);
+ }
+ EXPORT_SYMBOL_GPL(jz4740_clock_udc_enable_auto_suspend);
+ 
+@@ -273,31 +273,31 @@ void jz4740_clock_suspend(void)
+ {
+ 	uint32_t clkgr, cppcr;
+ 
+-	clkgr = readl(cgu->base + CGU_REG_CLKGR);
++	clkgr = cgu_readl(cgu, CGU_REG_CLKGR);
+ 	clkgr |= JZ_CLOCK_GATE_TCU | JZ_CLOCK_GATE_DMAC | JZ_CLOCK_GATE_UART0;
+-	writel(clkgr, cgu->base + CGU_REG_CLKGR);
++	cgu_writel(cgu, clkgr, CGU_REG_CLKGR);
+ 
+-	cppcr = readl(cgu->base + CGU_REG_CPPCR);
++	cppcr = cgu_readl(cgu, CGU_REG_CPPCR);
+ 	cppcr &= ~BIT(jz4740_cgu_clocks[JZ4740_CLK_PLL].pll.enable_bit);
+-	writel(cppcr, cgu->base + CGU_REG_CPPCR);
++	cgu_writel(cgu, cppcr, CGU_REG_CPPCR);
+ }
+ 
+ void jz4740_clock_resume(void)
+ {
+ 	uint32_t clkgr, cppcr, stable;
+ 
+-	cppcr = readl(cgu->base + CGU_REG_CPPCR);
++	cppcr = cgu_readl(cgu, CGU_REG_CPPCR);
+ 	cppcr |= BIT(jz4740_cgu_clocks[JZ4740_CLK_PLL].pll.enable_bit);
+-	writel(cppcr, cgu->base + CGU_REG_CPPCR);
++	cgu_writel(cgu, cppcr, CGU_REG_CPPCR);
+ 
+ 	stable = BIT(jz4740_cgu_clocks[JZ4740_CLK_PLL].pll.stable_bit);
+ 	do {
+-		cppcr = readl(cgu->base + CGU_REG_CPPCR);
++		cppcr = cgu_readl(cgu, CGU_REG_CPPCR);
+ 	} while (!(cppcr & stable));
+ 
+-	clkgr = readl(cgu->base + CGU_REG_CLKGR);
++	clkgr = cgu_readl(cgu, CGU_REG_CLKGR);
+ 	clkgr &= ~JZ_CLOCK_GATE_TCU;
+ 	clkgr &= ~JZ_CLOCK_GATE_DMAC;
+ 	clkgr &= ~JZ_CLOCK_GATE_UART0;
+-	writel(clkgr, cgu->base + CGU_REG_CLKGR);
++	cgu_writel(cgu, clkgr, CGU_REG_CLKGR);
+ }
 diff --git a/drivers/clk/ingenic/jz4780-cgu.c b/drivers/clk/ingenic/jz4780-cgu.c
 index b35d6d9..8f83433 100644
 --- a/drivers/clk/ingenic/jz4780-cgu.c
@@ -252,10 +360,10 @@ index b35d6d9..8f83433 100644
  	spin_unlock_irqrestore(&cgu->lock, flags);
  	return 0;
 diff --git a/drivers/crypto/Kconfig b/drivers/crypto/Kconfig
-index 331662c..9b97e7e 100644
+index 2888b91..15caf38 100644
 --- a/drivers/crypto/Kconfig
 +++ b/drivers/crypto/Kconfig
-@@ -573,6 +573,22 @@ config CRYPTO_DEV_IMGTEC_HASH
+@@ -587,6 +587,22 @@ config CRYPTO_DEV_IMGTEC_HASH
  	  hardware hash accelerator. Supporting MD5/SHA1/SHA224/SHA256
  	  hashing algorithms.
  
@@ -292,7 +400,7 @@ index 463f335..37ebb1a 100644
  obj-$(CONFIG_CRYPTO_DEV_MEDIATEK) += mediatek/
 diff --git a/drivers/crypto/jz4780-rng.c b/drivers/crypto/jz4780-rng.c
 new file mode 100644
-index 0000000..67cf6e1
+index 0000000..2377e62
 --- /dev/null
 +++ b/drivers/crypto/jz4780-rng.c
 @@ -0,0 +1,172 @@
@@ -321,8 +429,8 @@ index 0000000..67cf6e1
 +
 +#include <crypto/internal/rng.h>
 +
-+#define REG_RNG_CTRL	0x0+0xd8
-+#define REG_RNG_DATA	0x4+0xd8
++#define REG_RNG_CTRL	0xD8
++#define REG_RNG_DATA	0xDC
 +
 +/* Context for crypto */
 +struct jz4780_rng_ctx {
@@ -404,7 +512,7 @@ index 0000000..67cf6e1
 +		.cra_name		= "stdrng",
 +		.cra_driver_name	= "jz4780_rng",
 +		.cra_priority		= 100,
-+		.cra_ctxsize		= sizeof(struct jz4780_rng_ctx),
++		.cra_ctxsize		= sizeof(jz4780_rng_ctx),
 +		.cra_module		= THIS_MODULE,
 +		.cra_init		= jz4780_rng_kcapi_init,
 +	}
