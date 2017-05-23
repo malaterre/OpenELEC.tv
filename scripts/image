@@ -147,7 +147,7 @@ fi
 # Automounter support
   [ "$UDEVIL" = "yes" ] && $SCRIPTS/install udevil
 
-# NTFS 3G support
+# exFAT support
   [ "$EXFAT" = "yes" ] && $SCRIPTS/install fuse-exfat
 
 # NTFS 3G support
