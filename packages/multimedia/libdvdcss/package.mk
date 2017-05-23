@@ -33,4 +33,4 @@ PKG_LONGDESC="libdvdcss is a simple library designed for accessing DVDs as a blo
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="yes"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared --with-pic"
+PKG_CONFIGURE_OPTS_TARGET="--enable-static --disable-shared --with-pic --disable-doc"
