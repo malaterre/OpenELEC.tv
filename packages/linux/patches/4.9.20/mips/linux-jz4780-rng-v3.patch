@@ -512,7 +512,7 @@ index 0000000..2377e62
 +		.cra_name		= "stdrng",
 +		.cra_driver_name	= "jz4780_rng",
 +		.cra_priority		= 100,
-+		.cra_ctxsize		= sizeof(jz4780_rng_ctx),
++		.cra_ctxsize		= sizeof(struct jz4780_rng_ctx),
 +		.cra_module		= THIS_MODULE,
 +		.cra_init		= jz4780_rng_kcapi_init,
 +	}
@@ -573,6 +573,6 @@ index 0000000..2377e62
 +
 +module_platform_driver(jz4780_rng_driver);
 +
-+MODULE_DESCRIPTION("Ingenic JZ4780 H/W Psuedo Random Number Generator driver");
++MODULE_DESCRIPTION("Ingenic JZ4780 H/W Pseudo Random Number Generator driver");
 +MODULE_AUTHOR("PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>");
 +MODULE_LICENSE("GPL");

@@ -33,7 +33,7 @@
     KERNEL_TARGET="uImage"
 
   # Kernel devicetree image
-    KERNEL_UBOOT_DT_IMAGE="ci20.dtb"
+    KERNEL_UBOOT_DT_IMAGE="ingenic/ci20.dtb"
 
   # Kernel extra targets to build
     KERNEL_UBOOT_EXTRA_TARGET="uImage.gz"
@@ -139,4 +139,5 @@
   # Space separated list is supported,
   # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
     ADDITIONAL_DRIVERS="SGX_DDK"
+    ADDITIONAL_DRIVERS=""
 #    KODI_MYSQL_SUPPORT="no"
