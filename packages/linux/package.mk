@@ -15,7 +15,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
+set -x
 PKG_NAME="linux"
 PKG_REV="1"
 PKG_ARCH="any"

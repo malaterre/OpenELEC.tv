@@ -15,7 +15,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
-
+set -x
 PKG_NAME="SGX_DDK"
 PKG_VERSION="3759903"
 PKG_REV="1"
@@ -36,7 +36,8 @@ PKG_AUTORECONF="no"
 
 # http://elinux.org/CI20-SGX_kernel_module
 make_target() {
-  CROSS_COMPILE=${TARGET_NAME}- ARCH=$TARGET_KERNEL_ARCH KERNELDIR=/home/mathieu/tmp/OpenELEC.tv/build.OpenELEC-ci20.mips-8.0-devel/linux-3c61f45 make -C eurasiacon/build/linux2/jz4780_linux V=1
+#  CROSS_COMPILE=${TARGET_NAME}- ARCH=$TARGET_KERNEL_ARCH KERNELDIR=/home/mathieu/tmp/OpenELEC.tv/build.OpenELEC-ci20.mips-8.0-devel/linux-3c61f45 make -C eurasiacon/build/linux2/jz4780_linux V=1
+  CROSS_COMPILE=${TARGET_NAME}- ARCH=$TARGET_KERNEL_ARCH KERNELDIR=/home/mathieu/tmp/OpenELEC.tv/build.OpenELEC-ci20.mips-8.0-devel/linux-7dff332 make -C eurasiacon/build/linux2/jz4780_linux V=1
 #  make V=1 \
 #       ARCH=$TARGET_KERNEL_ARCH \
 #       KSRC=$(get_pkg_build linux) \

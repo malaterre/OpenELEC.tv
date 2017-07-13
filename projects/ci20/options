@@ -30,13 +30,14 @@
     UBOOT_CONFIGFILE=""
 
   # Kernel target
-    KERNEL_TARGET="uImage"
+    #KERNEL_TARGET="uImage"
+    KERNEL_TARGET="uImage.gz"
 
   # Kernel devicetree image
     KERNEL_UBOOT_DT_IMAGE="ci20.dtb"
 
   # Kernel extra targets to build
-    KERNEL_UBOOT_EXTRA_TARGET="uImage.gz"
+    KERNEL_UBOOT_EXTRA_TARGET=""
 
   # Additional kernel make parameters (for example to specify the u-boot loadaddress)
     KERNEL_MAKE_EXTRACMD=""
@@ -132,7 +133,7 @@
     EXTRA_DEPS_PKG="u-boot-tools"
 
   # kernel image name
-    KERNEL_NAME="kernel.img"
+    KERNEL_NAME="uImage.bin"
 
   # additional drivers to install:
   # for a list of additinoal drivers see packages/linux-drivers
