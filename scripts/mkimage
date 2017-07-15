@@ -22,7 +22,7 @@
 # variables such as $ROOT $PATH etc... that are required for this
 # script to work must be passed via env ... in scripts/image
 ################################################################################
-
+set -x
 # set variables
   OE_TMP=$(mktemp -d)
   SAVE_ERROR="$OE_TMP/save_error"

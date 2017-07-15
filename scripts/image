@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+#set -x
 ################################################################################
 #      This file is part of OpenELEC - http://www.openelec.tv
 #      Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
@@ -470,10 +470,10 @@ fi
         fi
 
       # copy Bootloader
-        cp -PR $BUILD/bcm2835-firmware-*/LICENCE* $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/
-        cp -PR $BUILD/bcm2835-firmware-*/bootcode.bin $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/
-        cp -PR $BUILD/bcm2835-firmware-*/fixup_x.dat $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/fixup.dat
-        cp -PR $BUILD/bcm2835-firmware-*/start_x.elf $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/start.elf
+      #  cp -PR $BUILD/bcm2835-firmware-*/LICENCE* $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/
+      #  cp -PR $BUILD/bcm2835-firmware-*/bootcode.bin $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/
+      #  cp -PR $BUILD/bcm2835-firmware-*/fixup_x.dat $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/fixup.dat
+      #  cp -PR $BUILD/bcm2835-firmware-*/start_x.elf $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/start.elf
 
       # copy system files
         cp $TARGET_IMG/$IMAGE_NAME.system $RELEASE_DIR/${DISTRONAME}_${PROJECT}/System/SYSTEM
